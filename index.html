@@ -98,13 +98,31 @@
             getInitialState() {
                 return {
 
-                    notes: [
-                      {'id':0,'note':'Call Bob'},
-                      {'id':1,'note':'Eat Lunch'},
-                      {'id':2,'note':'Call Jim'},
-                      {'id':3,'note':'Finish Site'}
-                    ]
+                    notes: []
+                    
                 }
+            },
+
+            //Method for handling unique ID for each note
+
+            nextId()
+            {
+                    this.uniqueId = this.uniqueId || 0
+                    return this.uniqueId++
+            },
+
+            // Add a note to the Board
+
+            add(text)
+            {
+                var notes = [
+                    ...this.state.notes,
+                    {
+                        id:this.nextId,
+                        note:text
+                    }
+                ]
+                this.setState({notes})
             },
 
             // Update the array of notes in the Board class's state
@@ -166,6 +184,7 @@
                         <div className='board'>
 
                             {this.state.notes.map(this.eachNote)}
+                            <button onClick={() => this.add()}>+</button>
 
                         </div>
 
